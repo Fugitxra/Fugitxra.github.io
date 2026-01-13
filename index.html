@@ -1,83 +1,369 @@
+full_portfolio = '''
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fugitxra - Front-End Developer</title>
+    <title>Fugitxra - Front-End Developer | Portfolio</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --secondary: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --dark: #2d3436; --light: #f8f9fa; --accent: #00b894;
+            --text: #2d3436; --text-light: #636e72; --white: rgba(255,255,255,0.95);
+        }
         body { 
-            font-family: system-ui, sans-serif; line-height: 1.6; 
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white; min-height: 100vh; padding: 20px;
+            font-family: "Inter", system-ui, -apple-system, sans-serif; 
+            line-height: 1.6; background: var(--primary); color: var(--text);
+            min-height: 100vh; overflow-x: hidden;
         }
-        .container { max-width: 1000px; margin: 0 auto; text-align: center; }
-        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
-        p { font-size: 1.3rem; max-width: 700px; margin: 0 auto 2rem; opacity: 0.95; }
-        .btn { 
-            display: inline-block; background: rgba(255,255,255,0.2); 
-            color: white; padding: 1rem 2.5rem; border-radius: 50px; 
-            text-decoration: none; font-weight: 600; font-size: 1.1rem;
-            backdrop-filter: blur(10px); transition: all 0.3s; margin: 0.5rem;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        body.dark { --primary: linear-gradient(135deg, #1e1e2e 0%, #2d1b69 100%); color: #f1f5f9; }
+        
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+        
+        /* Navbar */
+        nav { 
+            background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(20px); 
+            position: fixed; top: 0; width: 100%; z-index: 1000; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
         }
-        .btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
-        .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 4rem; }
-        .project { background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; backdrop-filter: blur(10px); }
-        .project h3 { font-size: 1.8rem; margin-bottom: 1rem; }
-        .status { font-size: 4rem; margin: 2rem 0; }
-        @media (max-width: 768px) { body { padding: 15px; } }
+        nav .container { 
+            display: flex; justify-content: space-between; align-items: center; 
+            padding: 1rem 0; max-width: 1200px; margin: 0 auto;
+        }
+        nav ul { list-style: none; display: flex; gap: 2.5rem; }
+        nav a { 
+            color: white; text-decoration: none; padding: 0.75rem 1.5rem; 
+            border-radius: 12px; font-weight: 500; transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+            position: relative;
+        }
+        nav a:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        
+        /* Dark Toggle */
+        .dark-toggle button { 
+            background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.3); 
+            border-radius: 50%; width: 55px; height: 55px; cursor: pointer; 
+            font-size: 1.4rem; transition: all 0.4s cubic-bezier(0.4,0,0.2,1);
+            backdrop-filter: blur(10px);
+        }
+        .dark-toggle button:hover { transform: rotate(180deg) scale(1.1); box-shadow: 0 10px 30px rgba(255,255,255,0.2); }
+        
+        /* Hero */
+        #hero { 
+            min-height: 100vh; display: flex; align-items: center; 
+            text-align: center; padding-top: 80px; position: relative; overflow: hidden;
+        }
+        #hero::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; 
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.05)"/><circle cx="40" cy="80" r="1" fill="rgba(255,255,255,0.08)"/></svg>') repeat;
+            animation: float 20s linear infinite;
+        }
+        @keyframes float { 0% { transform: translateY(0) rotate(0deg); } 100% { transform: translateY(-100px) rotate(360deg); } }
+        #hero .container { position: relative; z-index: 2; }
+        #hero h1 { font-size: clamp(3.5rem, 8vw, 6rem); margin-bottom: 1.5rem; font-weight: 700; letter-spacing: -1px; }
+        #hero .subtitle { font-size: clamp(1.2rem, 3vw, 1.8rem); margin-bottom: 3rem; opacity: 0.95; max-width: 800px; margin-left: auto; margin-right: auto; }
+        .cta-buttons { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+        .btn-primary, .btn-secondary { 
+            padding: 1.2rem 3rem; border-radius: 50px; font-weight: 600; font-size: 1.1rem;
+            text-decoration: none; transition: all 0.4s cubic-bezier(0.4,0,0.2,1); 
+            backdrop-filter: blur(20px); border: 2px solid rgba(255,255,255,0.2);
+        }
+        .btn-primary { background: rgba(255,255,255,0.15); color: white; }
+        .btn-primary:hover { background: rgba(255,255,255,0.25); transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.3); }
+        .btn-secondary { background: transparent; color: white; }
+        .btn-secondary:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+        
+        /* Sections */
+        section { padding: 120px 0; position: relative; }
+        section h2 { 
+            text-align: center; font-size: clamp(2.5rem, 5vw, 4rem); 
+            margin-bottom: 4rem; font-weight: 700; letter-spacing: -0.02em;
+        }
+        section:nth-of-type(odd) { background: rgba(255,255,255,0.03); }
+        
+        /* Projects */
+        .projects-grid { 
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(380px, 1fr)); 
+            gap: 2.5rem; 
+        }
+        .project-card { 
+            background: rgba(255,255,255,0.08); backdrop-filter: blur(20px); 
+            border-radius: 24px; padding: 2.5rem; border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.5s cubic-bezier(0.4,0,0.2,1); position: relative; overflow: hidden;
+        }
+        .project-card::before { 
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px; 
+            background: var(--secondary); transform: scaleX(0); transition: transform 0.4s ease;
+        }
+        .project-card:hover::before { transform: scaleX(1); }
+        .project-card:hover { 
+            transform: translateY(-12px) scale(1.02); 
+            box-shadow: 0 40px 80px rgba(0,0,0,0.3); border-color: rgba(255,255,255,0.2);
+        }
+        .project-icon { font-size: 3.5rem; margin-bottom: 1.5rem; opacity: 0.9; }
+        .project-card h3 { font-size: 1.8rem; margin-bottom: 1rem; font-weight: 600; }
+        .project-tech { display: flex; gap: 0.8rem; margin: 1.5rem 0; flex-wrap: wrap; }
+        .tech-tag { background: rgba(255,255,255,0.15); padding: 0.3rem 1rem; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+        .project-links { display: flex; gap: 1rem; margin-top: 2rem; }
+        .project-link { 
+            flex: 1; padding: 0.8rem 1.5rem; border-radius: 12px; text-decoration: none; 
+            font-weight: 500; text-align: center; transition: all 0.3s;
+        }
+        .project-link.live { background: rgba(0,184,148,0.2); color: #00b894; border: 2px solid #00b894; }
+        .project-link.live:hover { background: rgba(0,184,148,0.3); }
+        .project-link.code { background: rgba(255,255,255,0.15); color: white; }
+        .project-link.code:hover { background: rgba(255,255,255,0.25); }
+        
+        /* Skills */
+        .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; }
+        .skill-group { text-align: center; }
+        .skill-group h4 { font-size: 1.4rem; margin-bottom: 1.5rem; opacity: 0.9; }
+        .skill-bar { 
+            background: rgba(255,255,255,0.15); height: 12px; border-radius: 8px; 
+            overflow: hidden; margin-bottom: 1.2rem; position: relative;
+        }
+        .skill-progress { 
+            height: 100%; background: var(--secondary); border-radius: 8px; 
+            width: 0%; transition: width 2s cubic-bezier(0.4,0,0.2,1); 
+            position: relative; overflow: hidden;
+        }
+        .skill-progress::after { 
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            animation: shimmer 2s infinite;
+        }
+        @keyframes shimmer { 0% { left: -100%; } 100% { left: 100%; } }
+        
+        /* Contact */
+        #contact { background: rgba(0,0,0,0.1); }
+        #contact form { 
+            max-width: 600px; margin: 0 auto; display: grid; gap: 1.5rem; 
+            background: rgba(255,255,255,0.1); padding: 3rem; border-radius: 24px; 
+            backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1);
+        }
+        #contact input, #contact textarea { 
+            padding: 1.3rem; border: 2px solid rgba(255,255,255,0.2); 
+            border-radius: 16px; font-size: 1.1rem; background: rgba(255,255,255,0.9);
+            transition: all 0.3s; font-family: inherit;
+        }
+        #contact input:focus, #contact textarea:focus { 
+            outline: none; border-color: #00b894; box-shadow: 0 0 0 4px rgba(0,184,148,0.1);
+            transform: translateY(-2px);
+        }
+        #contact button { 
+            padding: 1.3rem; background: var(--secondary); color: white; 
+            border: none; border-radius: 16px; font-size: 1.2rem; font-weight: 600; 
+            cursor: pointer; transition: all 0.4s;
+        }
+        #contact button:hover { transform: translateY(-3px) scale(1.02); box-shadow: 0 20px 40px rgba(240,91,108,0.4); }
+        
+        /* Footer */
+        footer { 
+            background: rgba(15,23,42,0.95); color: rgba(255,255,255,0.8); 
+            text-align: center; padding: 3rem 1.5rem 2rem; margin-top: 6rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        .social-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem; }
+        .social-links a { color: white; font-size: 1.5rem; transition: transform 0.3s; }
+        .social-links a:hover { transform: translateY(-3px) scale(1.2); }
+        
+        /* Animations & Scroll */
+        .fade-in { opacity: 0; transform: translateY(50px); transition: all 0.8s cubic-bezier(0.25,0.46,0.45,0.94); }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+        
+        /* Responsive */
+        @media (max-width: 768px) { 
+            nav ul { gap: 1.5rem; } 
+            .cta-buttons { flex-direction: column; align-items: center; }
+            .projects-grid { grid-template-columns: 1fr; gap: 2rem; }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>✅ <strong>Fugitxra.github.io</strong> LIVE!</h1>
-        <p>Portfolio deploying successfully 🚀<br>Repo name correct + Pages enabled</p>
-        
-        <div style="margin: 3rem 0;">
-            <a href="https://fugitxra.github.io/weather-app" class="btn">🌤️ Weather App LIVE</a>
-            <a href="#projects" class="btn">📁 View All Projects</a>
-        </div>
-        
-        <div class="projects">
-            <div class="project">
-                <h3>🌙 Dark Mode Toggle</h3>
-                <div class="status">✅ Complete</div>
-                <p>Live on portfolio • localStorage • Smooth transitions</p>
-            </div>
-            <div class="project">
-                <h3>🌤️ Weather App</h3>
-                <div class="status">🔄 Deploying</div>
-                <p>OpenWeatherMap API • Responsive • 5-day forecast<br><a href="https://fugitxra.github.io/weather-app" style="color: #ffd700;">Live Demo</a></p>
-            </div>
-            <div class="project">
-                <h3>📱 Task Tracker</h3>
-                <div class="status">🚧 Next</div>
-                <p>CRUD • localStorage • Drag & drop</p>
+    <!-- Navbar -->
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="#hero">Home</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <div class="dark-toggle">
+                <button id="darkModeToggle" aria-label="Toggle dark mode">🌙</button>
             </div>
         </div>
-        
-        <p style="margin-top: 4rem; opacity: 0.8; font-size: 1.1rem;">
-            Full portfolio coming soon... <strong>Watch this space! 👀</strong>
-        </p>
-    </div>
+    </nav>
+    
+    <!-- Hero -->
+    <section id="hero" class="fade-in">
+        <div class="container">
+            <h1>Fugitxra</h1>
+            <p class="subtitle">Crafting pixel-perfect, responsive web experiences with modern HTML, CSS & JavaScript</p>
+            <div class="cta-buttons">
+                <a href="#projects" class="btn-primary">👀 Explore Projects</a>
+                <a href="#contact" class="btn-secondary">📞 Let's Talk</a>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects -->
+    <section id="projects" class="fade-in">
+        <div class="container">
+            <h2>Featured Work</h2>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-icon">🌙</div>
+                    <h3>Dark Mode System</h3>
+                    <p>Advanced theme system with localStorage persistence, smooth CSS transitions, and perfect mobile support across this portfolio.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">JavaScript</span>
+                        <span class="tech-tag">CSS Custom Properties</span>
+                        <span class="tech-tag">localStorage</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link live">Live Demo</a>
+                        <a href="#" class="project-link code">View Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">🌤️</div>
+                    <h3>Weather Dashboard</h3>
+                    <p>Real-time weather app with OpenWeatherMap API integration, 5-day forecasts, responsive cards, and beautiful weather-themed animations.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">OpenWeatherMap API</span>
+                        <span class="tech-tag">Async JavaScript</span>
+                        <span class="tech-tag">CSS Grid</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://fugitxra.github.io/weather-app" class="project-link live" target="_blank">Live App</a>
+                        <a href="https://github.com/Fugitxra/weather-app" class="project-link code" target="_blank">Source Code</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <div class="project-icon">📱</div>
+                    <h3>Responsive Components</h3>
+                    <p>Collection of production-ready UI components including navbars, cards, modals, and animations built with modern CSS techniques.</p>
+                    <div class="project-tech">
+                        <span class="tech-tag">CSS Grid</span>
+                        <span class="tech-tag">Flexbox</span>
+                        <span class="tech-tag">CSS Animations</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="project-link live">Live Demo</a>
+                        <a href="#" class="project-link code">View Code</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills -->
+    <section id="skills" class="fade-in">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-group">
+                    <h4>Frontend</h4>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 95%"></div></div>HTML/CSS/JS
+                    <div class="skill-bar"><div class="skill-progress" style="width: 92%"></div></div>Responsive Design
+                    <div class="skill-bar"><div class="skill-progress" style="width: 88%"></div></div>Modern CSS
+                </div>
+                <div class="skill-group">
+                    <h4>Tools</h4>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 90%"></div></div>Git/GitHub
+                    <div class="skill-bar"><div class="skill-progress" style="width: 85%"></div></div>Figma
+                    <div class="skill-bar"><div class="skill-progress" style="width: 80%"></div></div>VS Code
+                </div>
+                <div class="skill-group">
+                    <h4>Currently Learning</h4>
+                    <div class="skill-bar"><div class="skill-progress" style="width: 70%"></div></div>React
+                    <div class="skill-bar"><div class="skill-progress" style="width: 65%"></div></div>Tailwind CSS
+                    <div class="skill-bar"><div class="skill-progress" style="width: 60%"></div></div>APIs
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact -->
+    <section id="contact">
+        <div class="container">
+            <h2>Let's Create Something Amazing</h2>
+            <form>
+                <input type="text" placeholder="Your Name" required>
+                <input type="email" placeholder="your.email@example.com" required>
+                <textarea rows="5" placeholder="Tell me about your project or idea..." required></textarea>
+                <button type="submit">Send Message 🚀</button>
+            </form>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="social-links">
+                <a href="#" aria-label="GitHub">📱</a>
+                <a href="#" aria-label="LinkedIn">💼</a>
+                <a href="#" aria-label="Email">📧</a>
+                <a href="#" aria-label="Twitter">🐦</a>
+            </div>
+            <p>&copy; 2026 Fugitxra. Built with vanilla code. Deployed on GitHub Pages.</p>
+        </div>
+    </footer>
     
     <script>
-        alert('✅ Portfolio LIVE! Weather App deploying now... 🌤️');
+        // Dark mode toggle
+        const darkToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
         
-        // Auto-scroll to projects
-        if (location.hash !== '#projects') {
-            setTimeout(() => {
-                document.querySelector('.projects')?.scrollIntoView({ behavior: 'smooth' });
-            }, 2000);
+        // Load preference
+        if (localStorage.theme === 'dark' || (!localStorage.theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            body.classList.add('dark');
+            darkToggle.textContent = '☀️';
+        } else {
+            darkToggle.textContent = '🌙';
         }
+        
+        darkToggle.addEventListener('click', () => {
+            body.classList.toggle('dark');
+            if (body.classList.contains('dark')) {
+                darkToggle.textContent = '☀️';
+                localStorage.theme = 'dark';
+            } else {
+                darkToggle.textContent = '🌙';
+                localStorage.theme = 'light';
+            }
+        });
+        
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            });
+        });
+        
+        // Scroll animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        
+        // Form submission
+        document.querySelector('form').addEventListener('submit', e => {
+            e.preventDefault();
+            alert('📧 Message sent! (Demo - reach out via GitHub)');
+        });
     </script>
 </body>
 </html>
 '''
 
-print(portfolio_with_weather)
-print("\n=== DEPLOY THIS TO Fugitxra.github.io ===")
-print("1. Edit index.html → Replace ALL with code above")
-print("2. Commit 'Add weather app link + deploying status'")
-print("3. Weather-app repo: Settings > Pages > Enable if not already")
+print(full_portfolio)
