@@ -1,9 +1,83 @@
 <!DOCTYPE html>
-<html>
-<head><title>Test</title></head>
-<body style="font-family:sans-serif;padding:50px;background:linear-gradient(45deg,#f06,#9f6)">
-<h1>✅ Fugitxra.github.io WORKS!</h1>
-<p>Repo name correct + Pages enabled. Dark mode next!</p>
-<script>alert('Page loads! 🎉');</script>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fugitxra - Front-End Developer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            font-family: system-ui, sans-serif; line-height: 1.6; 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white; min-height: 100vh; padding: 20px;
+        }
+        .container { max-width: 1000px; margin: 0 auto; text-align: center; }
+        h1 { font-size: clamp(2.5rem, 8vw, 4rem); margin-bottom: 1rem; text-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        p { font-size: 1.3rem; max-width: 700px; margin: 0 auto 2rem; opacity: 0.95; }
+        .btn { 
+            display: inline-block; background: rgba(255,255,255,0.2); 
+            color: white; padding: 1rem 2.5rem; border-radius: 50px; 
+            text-decoration: none; font-weight: 600; font-size: 1.1rem;
+            backdrop-filter: blur(10px); transition: all 0.3s; margin: 0.5rem;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+        .btn:hover { transform: translateY(-3px); background: rgba(255,255,255,0.3); box-shadow: 0 15px 35px rgba(0,0,0,0.3); }
+        .projects { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; margin-top: 4rem; }
+        .project { background: rgba(255,255,255,0.1); padding: 2rem; border-radius: 20px; backdrop-filter: blur(10px); }
+        .project h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+        .status { font-size: 4rem; margin: 2rem 0; }
+        @media (max-width: 768px) { body { padding: 15px; } }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>✅ <strong>Fugitxra.github.io</strong> LIVE!</h1>
+        <p>Portfolio deploying successfully 🚀<br>Repo name correct + Pages enabled</p>
+        
+        <div style="margin: 3rem 0;">
+            <a href="https://fugitxra.github.io/weather-app" class="btn">🌤️ Weather App LIVE</a>
+            <a href="#projects" class="btn">📁 View All Projects</a>
+        </div>
+        
+        <div class="projects">
+            <div class="project">
+                <h3>🌙 Dark Mode Toggle</h3>
+                <div class="status">✅ Complete</div>
+                <p>Live on portfolio • localStorage • Smooth transitions</p>
+            </div>
+            <div class="project">
+                <h3>🌤️ Weather App</h3>
+                <div class="status">🔄 Deploying</div>
+                <p>OpenWeatherMap API • Responsive • 5-day forecast<br><a href="https://fugitxra.github.io/weather-app" style="color: #ffd700;">Live Demo</a></p>
+            </div>
+            <div class="project">
+                <h3>📱 Task Tracker</h3>
+                <div class="status">🚧 Next</div>
+                <p>CRUD • localStorage • Drag & drop</p>
+            </div>
+        </div>
+        
+        <p style="margin-top: 4rem; opacity: 0.8; font-size: 1.1rem;">
+            Full portfolio coming soon... <strong>Watch this space! 👀</strong>
+        </p>
+    </div>
+    
+    <script>
+        alert('✅ Portfolio LIVE! Weather App deploying now... 🌤️');
+        
+        // Auto-scroll to projects
+        if (location.hash !== '#projects') {
+            setTimeout(() => {
+                document.querySelector('.projects')?.scrollIntoView({ behavior: 'smooth' });
+            }, 2000);
+        }
+    </script>
 </body>
 </html>
+'''
+
+print(portfolio_with_weather)
+print("\n=== DEPLOY THIS TO Fugitxra.github.io ===")
+print("1. Edit index.html → Replace ALL with code above")
+print("2. Commit 'Add weather app link + deploying status'")
+print("3. Weather-app repo: Settings > Pages > Enable if not already")
